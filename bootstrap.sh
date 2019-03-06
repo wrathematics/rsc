@@ -5,7 +5,7 @@ MACHINES=`find -maxdepth 1 -mindepth 1 -type d`
 HN=`echo $HOSTNAME | sed -e 's/-.*//'`
 
 for m in $MACHINES; do
-  if [ X${HN} = X${m} ]; then
+  if [ X${HN} = X`basename ${m}` ]; then
     mv ${m}/* .
     touch .found_machine
   fi
@@ -27,7 +27,7 @@ git clone https://github.com/rbigdata/kazaam
 git clone https://github.com/rbigdata/glmrgame
 cd ..
 
-cat ".libPaths(paste0(getwd(), '/lib'))" > .Rprofile
+echo ".libPaths(paste0(getwd(), '/lib'))" > .Rprofile
 
 for m in $MACHINES; do
   rm -rf $m
